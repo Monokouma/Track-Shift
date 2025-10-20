@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "283992937129",
+    "project_id": "trackshift-12076",
+    "storage_bucket": "trackshift-12076.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283992937129:android:537cd1133c5a0ead584fb8",
+        "android_client_info": {
+          "package_name": "com.despaircorp.trackshift"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283992937129-h4i69mvh7noi5gs03mti82ggc8sgh8fl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChF0gNVqYl1RI855p5WIKV__nFdlv3RZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "283992937129-h4i69mvh7noi5gs03mti82ggc8sgh8fl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
