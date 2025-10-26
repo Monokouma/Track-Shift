@@ -1,6 +1,7 @@
 package com.despaircorp.trackshift
 
 import android.app.Application
+import com.despaircorp.trackshift.di.initKoin
 import com.despaircorp.trackshift.di.networkModule
 import com.despaircorp.trackshift.di.repositoryModule
 import com.despaircorp.trackshift.di.useCaseModule
@@ -15,11 +16,10 @@ class TrackShiftApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        startKoin{
+        initKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@TrackShiftApplication)
             modules(viewModelModule)
-
         }
     }
 }

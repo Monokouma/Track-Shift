@@ -1,14 +1,18 @@
-@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
-
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+import java.io.FileInputStream
+import java.util.Properties
+import co.touchlab.skie.configuration.FlowInterop
+import co.touchlab.skie.configuration.SealedInterop
+import co.touchlab.skie.configuration.SuspendInterop
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.sqldelight)
+    id("com.codingfeline.buildkonfig") version "0.17.1"
+    id("co.touchlab.skie") version "0.10.6"
+
 }
 
 kotlin {
@@ -24,7 +28,7 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "Shared"
-            isStatic = true
+            isStatic = false
             export(libs.koin.core)
         }
     }
@@ -33,6 +37,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(libs.postgrest.kt)
+            implementation(libs.gotrue.kt)
+
             // put your Multiplatform dependencies here
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
@@ -57,8 +64,6 @@ kotlin {
             // Logging
             implementation(libs.napier)
 
-            implementation(libs.firebase.common)
-            implementation(libs.firebase.auth)
         }
 
         androidMain.dependencies {
@@ -79,6 +84,8 @@ kotlin {
     }
 }
 
+
+
 android {
     namespace = "com.despaircorp.trackshift.shared"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -88,5 +95,43 @@ android {
     }
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+
+}
+
+buildkonfig {
+    packageName = "com.despaircorp.trackshift.shared"
+
+    defaultConfigs {
+        val properties = Properties()
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            properties.load(FileInputStream(localPropertiesFile))
+        }
+
+        buildConfigField(
+            com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING,
+            "SUPABASE_URL",
+            properties.getProperty("supabase.url", "")
+        )
+        buildConfigField(
+            com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING,
+            "SUPABASE_KEY",
+            properties.getProperty("supabase.key", "")
+        )
+    }
+}
+
+skie {
+    analytics {
+        disableUpload.set(true)
+    }
+
+    features {
+        group {
+            SuspendInterop.Enabled(true)
+            SealedInterop.Enabled(true)
+            FlowInterop.Enabled(true)
+        }
     }
 }

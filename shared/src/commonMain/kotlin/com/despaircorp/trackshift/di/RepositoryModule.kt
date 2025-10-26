@@ -1,22 +1,15 @@
 package com.despaircorp.trackshift.di
 
+import com.despaircorp.trackshift.data.user.UserRepository
+import com.despaircorp.trackshift.domain.user.UserInterface
 import org.koin.dsl.module
 
 
 val repositoryModule = module {
 
-    // Exemple : Repository avec interface
-    // single<UserRepository> {
-    //     UserRepositoryImpl(
-    //         httpClient = get(),
-    //         database = get()
-    //     )
-    // }
-
-    // Exemple : Repository sans interface (classe concrète)
-    // single {
-    //     AuthRepository(
-    //         authApi = get()
-    //     )
-    // }
+    single<UserInterface> {
+        UserRepository(
+            supabaseClient = get()
+        )
+    }
 }
