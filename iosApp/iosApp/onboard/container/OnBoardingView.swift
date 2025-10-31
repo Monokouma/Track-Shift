@@ -16,7 +16,11 @@ struct OnBoardingView: View {
             WelcomeView(path: $path)
                 .navigationDestination(for: String.self) { destination in
                     if destination == "auth" {
-                        AuthView().navigationBarBackButtonHidden(true)
+                        AuthView(path: $path)
+                            .navigationBarBackButtonHidden(true)
+                    }
+                    if destination == "tuto" {
+                        TutoView() .navigationBarBackButtonHidden(true)
                     }
             }
         }

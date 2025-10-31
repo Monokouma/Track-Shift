@@ -34,7 +34,7 @@ struct WelcomeView: View {
                 Spacer()
                 if isVisible {
                     RoundedRectangle(cornerRadius: size * 0.24)
-                        .fill(.backgroundColor3)
+                        .fill(.primaryPurple.opacity(0.2))
                         .overlay {
                             Image(systemName: "music.note")
                                 .font(.system(size: size * 0.6, weight: .medium))
@@ -79,16 +79,15 @@ struct WelcomeView: View {
     }
     
     private func navigateToAuth() {
-        guard !isNavigating else { return }  // ← Protection contre spam
+        guard !isNavigating else { return }
         
-        // Haptic feedback
+        
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         
         isNavigating = true
         
         withAnimation(.snappy(duration: 1)) {
             isVisible = false
-            
             
         }
         
@@ -103,6 +102,9 @@ struct WelcomeView: View {
 struct RoundButtonStyle: ButtonStyle {
     var backgroundColor: Color = .primaryPurple
     var foregroundColor: Color = .textColor1
+    var cornerRadius: CGFloat = .infinity
+    var borderColor: Color? = nil
+    var borderWidth: CGFloat = 1
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -111,14 +113,21 @@ struct RoundButtonStyle: ButtonStyle {
             .frame(maxWidth: .infinity)
             .padding()
             .background(backgroundColor)
-            .clipShape(Capsule())
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+            .overlay {
+                if let borderColor {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(borderColor, lineWidth: borderWidth)
+                }
+            }
             .scaleEffect(configuration.isPressed ? 0.92 : 1.0)
             .animation(.spring(response: 0.4), value: configuration.isPressed)
     }
 }
 
+
 #Preview {
-    @State var path = NavigationPath()
+    @Previewable @State var path = NavigationPath()
 
     WelcomeView(path: $path)
 }

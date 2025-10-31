@@ -3,6 +3,7 @@ package com.despaircorp.trackshift.di
 import com.despaircorp.trackshift.shared.BuildKonfig
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.createSupabaseClient
+import io.github.jan.supabase.postgrest.Postgrest
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -50,6 +51,7 @@ val networkModule = module {
             supabaseKey = BuildKonfig.SUPABASE_KEY
         ) {
             install(Auth)
+            install(Postgrest)
         }
     }
 }
