@@ -2,11 +2,28 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.401418089481-7poq0fqijggo3bitr398ksa0anu1ivhe</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.despaircorp.trackshift</string>
+			</array>
+		</dict>
+	</array>
+	<key>GIDClientID</key>
+	<string>401418089481-7poq0fqijggo3bitr398ksa0anu1ivhe.apps.googleusercontent.com</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat.ttf</string>
 	</array>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
 </dict>
 </plist>

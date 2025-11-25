@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -16,14 +17,33 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
+            // Compose Android
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.koin.android)
+
+            // Lifecycle Android
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.androidx.lifecycle.runtime.ktx)
 
+            // Koin Android
+            implementation(libs.koin.android)
+            implementation(libs.insert.koin.koin.androidx.compose)
+            implementation(libs.androidx.compose.material.icons.extended)
+
+            // Navigation Android (déplacé ici depuis commonMain)
+            implementation(libs.androidx.navigation.compose)
+
+            // Compose BOM (pour versions cohérentes)
+            implementation(project.dependencies.platform(libs.androidx.compose.bom))
+            implementation(libs.androidx.compose.ui)
+            implementation(libs.androidx.compose.ui.graphics)
+            implementation(libs.androidx.compose.ui.tooling.preview)
+            implementation(libs.androidx.compose.material3)
         }
+
         commonMain.dependencies {
+            // Compose Multiplatform
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -31,9 +51,14 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
-            implementation(projects.shared)
+            // Lifecycle Multiplatform
+            implementation(libs.lifecycle.runtime.compose)
+            implementation(libs.lifecycle.viewmodel.compose)
 
+            // Shared module
+            implementation(projects.shared)
         }
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
@@ -51,23 +76,35 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
+// Debug dependencies (test uniquement)
 dependencies {
     debugImplementation(compose.uiTooling)
-}
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+}

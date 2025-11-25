@@ -9,5 +9,6 @@ plugins {
     alias(libs.plugins.composeCompiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     id("co.touchlab.skie") version "0.10.6" apply false
+    alias(libs.plugins.kotlin.android) apply false
 
 }

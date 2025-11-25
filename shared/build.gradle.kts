@@ -64,6 +64,10 @@ kotlin {
             // Logging
             implementation(libs.napier)
 
+            implementation(libs.androidx.credentials)
+            implementation(libs.googleid)
+            implementation(libs.androidx.credentials.play.services.auth)
+
         }
 
         androidMain.dependencies {
@@ -95,8 +99,8 @@ android {
     }
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
-    }
 
+    }
 }
 
 buildkonfig {
@@ -108,7 +112,11 @@ buildkonfig {
         if (localPropertiesFile.exists()) {
             properties.load(FileInputStream(localPropertiesFile))
         }
-
+        buildConfigField(
+            com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING,
+            "API_SECRET_KEY",
+            properties.getProperty("API_SECRET_KEY", "")
+        )
         buildConfigField(
             com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING,
             "SUPABASE_URL",

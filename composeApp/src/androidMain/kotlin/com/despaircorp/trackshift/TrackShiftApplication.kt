@@ -19,7 +19,12 @@ class TrackShiftApplication: Application() {
         initKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@TrackShiftApplication)
-            modules(viewModelModule)
+            modules(
+                networkModule,
+                repositoryModule,
+                useCaseModule,
+                viewModelModule
+            )
         }
     }
 }

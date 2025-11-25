@@ -49,7 +49,7 @@ struct AuthButton: View {
     }
 }
 
-// MARK: - Auth Provider
+
 enum AuthProvider {
     case google
     case apple

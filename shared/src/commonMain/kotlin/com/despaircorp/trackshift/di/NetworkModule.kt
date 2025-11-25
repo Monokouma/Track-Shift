@@ -1,5 +1,6 @@
 package com.despaircorp.trackshift.di
 
+import com.despaircorp.trackshift.data.tracks.api.TrackShiftApi
 import com.despaircorp.trackshift.shared.BuildKonfig
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.createSupabaseClient
@@ -44,14 +45,21 @@ val networkModule = module {
     }
 
     single {
+        TrackShiftApi(get())
+    }
 
+    single {
 
         createSupabaseClient(
             supabaseUrl = BuildKonfig.SUPABASE_URL,
             supabaseKey = BuildKonfig.SUPABASE_KEY
         ) {
-            install(Auth)
+            install(Auth) {
+                autoLoadFromStorage = true
+                alwaysAutoRefresh = true
+            }
             install(Postgrest)
+
         }
     }
 }

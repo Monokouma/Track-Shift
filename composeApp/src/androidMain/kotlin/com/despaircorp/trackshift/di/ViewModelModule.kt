@@ -1,10 +1,9 @@
 package com.despaircorp.trackshift.di
 
+import com.despaircorp.trackshift.container.TrackShiftViewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    // Exemple : ViewModels
-    // viewModel { LoginViewModel(get()) }
-    // viewModel { HomeViewModel(get(), get()) }
-    // viewModel { ProfileViewModel(get()) }
+    viewModel { TrackShiftViewModel(isUserAuthUseCase = get()) }
 }
