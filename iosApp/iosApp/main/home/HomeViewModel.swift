@@ -17,6 +17,8 @@ class HomeViewModel: ObservableObject {
     @Published var imagesData: [Data] = []
     @Published var selectedPlatform: MusicPlatform?
     @Published var isLoading = false
+    @Published var convertedTracks: [ConvertedTrack] = []
+    @Published var showResults = false
     
     init() {
         let koin = KoinHelper()
@@ -27,15 +29,13 @@ class HomeViewModel: ObservableObject {
         !selectedImages.isEmpty && selectedPlatform != nil && !isLoading
     }
     
-    func convertPlaylist() async -> Bool {
+    func convertPlaylist() async {
         guard !imagesData.isEmpty,
-              let platform = selectedPlatform else { return false }
+              let platform = selectedPlatform else { return }
         
         isLoading = true
         
         let kotlinByteArrays = imagesData.map { data -> KotlinByteArray in
-            print("Image size: \(data.count) bytes") // ← Debug
-            print("First bytes: \(Array(data.prefix(8)))")
             let nsData = data as NSData
             return KotlinByteArray(size: Int32(nsData.length)) { index in
                 var byte: UInt8 = 0
@@ -51,19 +51,14 @@ class HomeViewModel: ObservableObject {
         )
         
         do {
-            let result = try await sendConvertRequestUseCase.invoke(convertRequestEntity: request)
-            print(result?.enumerated())
-            
-            await MainActor.run {
-                isLoading = false
+            if let result = try await sendConvertRequestUseCase.invoke(convertRequestEntity: request) {
+                convertedTracks = result.compactMap { $0 as ConvertedTrack }
+                showResults = true
             }
-            return true
-           
         } catch {
-            await MainActor.run {
-                isLoading = false
-            }
-            return false
+            print("Error: \(error)")
         }
+        
+        isLoading = false
     }
 }

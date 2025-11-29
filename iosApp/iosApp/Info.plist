@@ -25,5 +25,23 @@
 	<array>
 		<string>Montserrat.ttf</string>
 	</array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>music</string>
+        <string>spotify</string>
+        <string>deezer</string>
+        <string>youtubemusic</string>
+    </array>
+    <key>NSAppleMusicUsageDescription</key>
+    <string>Nous avons besoin d'accéder à Apple Music pour créer votre playlist</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>trackshift</string>
+            </array>
+        </dict>
+    </array>
 </dict>
 </plist>

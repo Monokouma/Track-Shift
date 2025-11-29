@@ -1,5 +1,6 @@
 package com.despaircorp.trackshift.di
 
+import com.despaircorp.trackshift.data.spotify.SpotifyApi
 import com.despaircorp.trackshift.data.tracks.api.TrackShiftApi
 import com.despaircorp.trackshift.shared.BuildKonfig
 import io.github.jan.supabase.auth.Auth
@@ -49,6 +50,10 @@ val networkModule = module {
     }
 
     single {
+        SpotifyApi(get())
+    }
+
+    single {
 
         createSupabaseClient(
             supabaseUrl = BuildKonfig.SUPABASE_URL,
@@ -57,6 +62,7 @@ val networkModule = module {
             install(Auth) {
                 autoLoadFromStorage = true
                 alwaysAutoRefresh = true
+                autoSaveToStorage = true
             }
             install(Postgrest)
 

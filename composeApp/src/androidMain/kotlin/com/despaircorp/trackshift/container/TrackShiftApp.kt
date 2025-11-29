@@ -64,18 +64,6 @@ fun TrackShiftApp(
                 composable("login") {
                     LoginView()
                 }
-                composable("tutorial") {
-                    /*
-                    TutorialScreen(
-                        onFinish = {
-                            navController.navigate("main") {
-                                popUpTo("auth") { inclusive = true }
-                            }
-                        }
-                    )
-
-                     */
-                }
             }
 
             navigation(

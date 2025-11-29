@@ -1,5 +1,9 @@
 package com.despaircorp.trackshift.di
 
+import com.despaircorp.trackshift.domain.spotify.CreateSpotifyPlaylistUseCase
+import com.despaircorp.trackshift.domain.spotify.GetSpotifyAuthUrlUseCase
+import com.despaircorp.trackshift.domain.spotify.HandleSpotifyCallbackUseCase
+import com.despaircorp.trackshift.domain.spotify.IsSpotifyAuthenticatedUseCase
 import com.despaircorp.trackshift.domain.tracks.SendConvertRequestUseCase
 import com.despaircorp.trackshift.domain.user.IsUserAuthUseCase
 import com.despaircorp.trackshift.domain.user.ManageAnonymousAuthUseCase
@@ -19,4 +23,8 @@ val useCaseModule = module {
     factory { ManageAuthWithAppleUseCase(userInterface = get()) }
     factory { ManageAuthWithGoogleUseCase(userInterface = get()) }
     factory { SendConvertRequestUseCase(tracksInterface = get()) }
+    factory { GetSpotifyAuthUrlUseCase(get()) }
+    factory { IsSpotifyAuthenticatedUseCase(get()) }
+    factory { HandleSpotifyCallbackUseCase(get()) }
+    factory { CreateSpotifyPlaylistUseCase(get()) }
 }

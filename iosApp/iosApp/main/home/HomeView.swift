@@ -112,6 +112,11 @@ struct HomeView: View {
         }
         .onAppear {
             startAnimations()
+        }.sheet(isPresented: $viewModel.showResults) {
+            ResultsView(
+                tracks: viewModel.convertedTracks,
+                platform: viewModel.selectedPlatform ?? .appleMusic
+            )
         }
     }
     
@@ -262,7 +267,7 @@ struct UploadScreenshotCarousel: View {
                                 .font(.custom("Montserrat-Bold", size: 18))
                                 .foregroundColor(.textColor1)
                             
-                            Text("Jusqu'à \(maxImages) screenshots • Max 10 Mo")
+                            Text("Jusqu'à \(maxImages) screenshots")
                                 .font(.custom("Montserrat", size: 14))
                                 .foregroundColor(.textColor2)
                                 .multilineTextAlignment(.center)

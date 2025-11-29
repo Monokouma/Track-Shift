@@ -1,5 +1,9 @@
 package com.despaircorp.trackshift.di
 
+import com.despaircorp.trackshift.domain.spotify.CreateSpotifyPlaylistUseCase
+import com.despaircorp.trackshift.domain.spotify.GetSpotifyAuthUrlUseCase
+import com.despaircorp.trackshift.domain.spotify.HandleSpotifyCallbackUseCase
+import com.despaircorp.trackshift.domain.spotify.IsSpotifyAuthenticatedUseCase
 import com.despaircorp.trackshift.domain.tracks.SendConvertRequestUseCase
 import com.despaircorp.trackshift.domain.user.IsUserAuthUseCase
 import com.despaircorp.trackshift.domain.user.ManageAnonymousAuthUseCase
@@ -21,4 +25,12 @@ class KoinHelper : KoinComponent {
     fun manageAuthWithGoogleUseCase(): ManageAuthWithGoogleUseCase = get()
 
     fun sendConvertRequestUseCase(): SendConvertRequestUseCase = get()
+
+    fun getSpotifyAuthUrlUseCase(): GetSpotifyAuthUrlUseCase = get()
+
+    fun isSpotifyAuthenticatedUseCase(): IsSpotifyAuthenticatedUseCase = get()
+
+    fun handleSpotifyCallbackUseCase(): HandleSpotifyCallbackUseCase = get()
+
+    fun createSpotifyPlaylistUseCase(): CreateSpotifyPlaylistUseCase = get()
 }

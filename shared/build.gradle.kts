@@ -127,6 +127,17 @@ buildkonfig {
             "SUPABASE_KEY",
             properties.getProperty("supabase.key", "")
         )
+
+        buildConfigField(
+            com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING,
+            "SPOTIFY_CLIENT_ID",
+            properties.getProperty("SPOTIFY_CLIENT_ID", "")
+        )
+        buildConfigField(
+            com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING,
+            "SPOTIFY_SECRET_KEY",
+            properties.getProperty("SPOTIFY_SECRET_KEY", "")
+        )
     }
 }
 
